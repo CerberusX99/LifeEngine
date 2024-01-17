@@ -42,26 +42,26 @@ struct CBChangesEveryFrame
 //--------------------------------------------------------------------------------------
 // Global Variables
 //--------------------------------------------------------------------------------------
-HINSTANCE                           g_hInst = NULL;
-HWND                                g_hWnd = NULL;
+HINSTANCE                           g_hInst = nullptr;
+HWND                                g_hWnd = nullptr;
 D3D_DRIVER_TYPE                     g_driverType = D3D_DRIVER_TYPE_NULL;
 D3D_FEATURE_LEVEL                   g_featureLevel = D3D_FEATURE_LEVEL_11_0;
-ID3D11Device*                       g_pd3dDevice = NULL;
-ID3D11DeviceContext*                g_pImmediateContext = NULL;
-IDXGISwapChain*                     g_pSwapChain = NULL;
-ID3D11RenderTargetView*             g_pRenderTargetView = NULL;
-ID3D11Texture2D*                    g_pDepthStencil = NULL;
-ID3D11DepthStencilView*             g_pDepthStencilView = NULL;
-ID3D11VertexShader*                 g_pVertexShader = NULL;
-ID3D11PixelShader*                  g_pPixelShader = NULL;
-ID3D11InputLayout*                  g_pVertexLayout = NULL;
-ID3D11Buffer*                       g_pVertexBuffer = NULL;
-ID3D11Buffer*                       g_pIndexBuffer = NULL;
-ID3D11Buffer*                       g_pCBNeverChanges = NULL;
-ID3D11Buffer*                       g_pCBChangeOnResize = NULL;
-ID3D11Buffer*                       g_pCBChangesEveryFrame = NULL;
-ID3D11ShaderResourceView*           g_pTextureRV = NULL;
-ID3D11SamplerState*                 g_pSamplerLinear = NULL;
+ID3D11Device*                       g_pd3dDevice = nullptr;
+ID3D11DeviceContext*                g_pImmediateContext = nullptr;
+IDXGISwapChain*                     g_pSwapChain = nullptr;
+ID3D11RenderTargetView*             g_pRenderTargetView = nullptr;
+ID3D11Texture2D*                    g_pDepthStencil = nullptr;
+ID3D11DepthStencilView*             g_pDepthStencilView = nullptr;
+ID3D11VertexShader*                 g_pVertexShader = nullptr;
+ID3D11PixelShader*                  g_pPixelShader = nullptr;
+ID3D11InputLayout*                  g_pVertexLayout = nullptr;
+ID3D11Buffer*                       g_pVertexBuffer = nullptr;
+ID3D11Buffer*                       g_pIndexBuffer = nullptr;
+ID3D11Buffer*                       g_pCBNeverChanges = nullptr;
+ID3D11Buffer*                       g_pCBChangeOnResize = nullptr;
+ID3D11Buffer*                       g_pCBChangesEveryFrame = nullptr;
+ID3D11ShaderResourceView*           g_pTextureRV = nullptr;
+ID3D11SamplerState*                 g_pSamplerLinear = nullptr;
 XMMATRIX                            g_World;
 XMMATRIX                            g_View;
 XMMATRIX                            g_Projection;
@@ -100,7 +100,7 @@ int WINAPI wWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdL
     MSG msg = {0};
     while( WM_QUIT != msg.message )
     {
-        if( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
+        if( PeekMessage( &msg, nullptr, 0, 0, PM_REMOVE ) )
         {
             TranslateMessage( &msg );
             DispatchMessage( &msg );
@@ -131,10 +131,10 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
     wcex.cbWndExtra = 0;
     wcex.hInstance = hInstance;
     wcex.hIcon = LoadIcon( hInstance, ( LPCTSTR )IDI_TUTORIAL1 );
-    wcex.hCursor = LoadCursor( NULL, IDC_ARROW );
+    wcex.hCursor = LoadCursor( nullptr, IDC_ARROW );
     wcex.hbrBackground = ( HBRUSH )( COLOR_WINDOW + 1 );
-    wcex.lpszMenuName = NULL;
-    wcex.lpszClassName = L"TutorialWindowClass";
+    wcex.lpszMenuName = nullptr;
+    wcex.lpszClassName = "TutorialWindowClass";
     wcex.hIconSm = LoadIcon( wcex.hInstance, ( LPCTSTR )IDI_TUTORIAL1 );
     if( !RegisterClassEx( &wcex ) )
         return E_FAIL;
@@ -143,9 +143,9 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
     g_hInst = hInstance;
     RECT rc = { 0, 0, 640, 480 };
     AdjustWindowRect( &rc, WS_OVERLAPPEDWINDOW, FALSE );
-    g_hWnd = CreateWindow( L"TutorialWindowClass", L"Direct3D 11 Tutorial 7", WS_OVERLAPPEDWINDOW,
-                           CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, hInstance,
-                           NULL );
+    g_hWnd = CreateWindow( "TutorialWindowClass", "LifeEngine", WS_OVERLAPPEDWINDOW,
+                           CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, hInstance,
+                           nullptr );
     if( !g_hWnd )
         return E_FAIL;
 
@@ -158,7 +158,7 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
 //--------------------------------------------------------------------------------------
 // Helper for compiling shaders with D3DX11
 //--------------------------------------------------------------------------------------
-HRESULT CompileShaderFromFile( WCHAR* szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut )
+HRESULT CompileShaderFromFile( char* szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut )
 {
     HRESULT hr = S_OK;
 
@@ -172,11 +172,11 @@ HRESULT CompileShaderFromFile( WCHAR* szFileName, LPCSTR szEntryPoint, LPCSTR sz
 #endif
 
     ID3DBlob* pErrorBlob;
-    hr = D3DX11CompileFromFile( szFileName, NULL, NULL, szEntryPoint, szShaderModel, 
-        dwShaderFlags, 0, NULL, ppBlobOut, &pErrorBlob, NULL );
+    hr = D3DX11CompileFromFile( szFileName, nullptr, nullptr, szEntryPoint, szShaderModel, 
+        dwShaderFlags, 0, nullptr, ppBlobOut, &pErrorBlob, nullptr );
     if( FAILED(hr) )
     {
-        if( pErrorBlob != NULL )
+        if( pErrorBlob != nullptr )
             OutputDebugStringA( (char*)pErrorBlob->GetBufferPointer() );
         if( pErrorBlob ) pErrorBlob->Release();
         return hr;
@@ -237,7 +237,7 @@ HRESULT InitDevice()
     for( UINT driverTypeIndex = 0; driverTypeIndex < numDriverTypes; driverTypeIndex++ )
     {
         g_driverType = driverTypes[driverTypeIndex];
-        hr = D3D11CreateDeviceAndSwapChain( NULL, g_driverType, NULL, createDeviceFlags, featureLevels, numFeatureLevels,
+        hr = D3D11CreateDeviceAndSwapChain( nullptr, g_driverType, nullptr, createDeviceFlags, featureLevels, numFeatureLevels,
                                             D3D11_SDK_VERSION, &sd, &g_pSwapChain, &g_pd3dDevice, &g_featureLevel, &g_pImmediateContext );
         if( SUCCEEDED( hr ) )
             break;
@@ -246,12 +246,12 @@ HRESULT InitDevice()
         return hr;
 
     // Create a render target view
-    ID3D11Texture2D* pBackBuffer = NULL;
+    ID3D11Texture2D* pBackBuffer = nullptr;
     hr = g_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
     if( FAILED( hr ) )
         return hr;
 
-    hr = g_pd3dDevice->CreateRenderTargetView( pBackBuffer, NULL, &g_pRenderTargetView );
+    hr = g_pd3dDevice->CreateRenderTargetView( pBackBuffer, nullptr, &g_pRenderTargetView );
     pBackBuffer->Release();
     if( FAILED( hr ) )
         return hr;
@@ -270,7 +270,7 @@ HRESULT InitDevice()
     descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
     descDepth.CPUAccessFlags = 0;
     descDepth.MiscFlags = 0;
-    hr = g_pd3dDevice->CreateTexture2D( &descDepth, NULL, &g_pDepthStencil );
+    hr = g_pd3dDevice->CreateTexture2D( &descDepth, nullptr, &g_pDepthStencil );
     if( FAILED( hr ) )
         return hr;
 
@@ -297,17 +297,17 @@ HRESULT InitDevice()
     g_pImmediateContext->RSSetViewports( 1, &vp );
 
     // Compile the vertex shader
-    ID3DBlob* pVSBlob = NULL;
-    hr = CompileShaderFromFile( L"LifeEngine.fx", "VS", "vs_4_0", &pVSBlob );
+    ID3DBlob* pVSBlob = nullptr;
+    hr = CompileShaderFromFile( "LifeEngine.fx", "VS", "vs_4_0", &pVSBlob );
     if( FAILED( hr ) )
     {
-        MessageBox( NULL,
-                    L"The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", L"Error", MB_OK );
+        MessageBox( nullptr,
+                    "The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", "Error", MB_OK );
         return hr;
     }
 
     // Create the vertex shader
-    hr = g_pd3dDevice->CreateVertexShader( pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), NULL, &g_pVertexShader );
+    hr = g_pd3dDevice->CreateVertexShader( pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), nullptr, &g_pVertexShader );
     if( FAILED( hr ) )
     {    
         pVSBlob->Release();
@@ -333,17 +333,16 @@ HRESULT InitDevice()
     g_pImmediateContext->IASetInputLayout( g_pVertexLayout );
 
     // Compile the pixel shader
-    ID3DBlob* pPSBlob = NULL;
-    hr = CompileShaderFromFile( L"LifeEngine.fx", "PS", "ps_4_0", &pPSBlob );
+    ID3DBlob* pPSBlob = nullptr;
+    hr = CompileShaderFromFile( "LifeEngine.fx", "PS", "ps_4_0", &pPSBlob );
     if( FAILED( hr ) )
     {
-        MessageBox( NULL,
-                    L"The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", L"Error", MB_OK );
+        MessageBox( nullptr,"The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", "Error", MB_OK );
         return hr;
     }
 
     // Create the pixel shader
-    hr = g_pd3dDevice->CreatePixelShader( pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), NULL, &g_pPixelShader );
+    hr = g_pd3dDevice->CreatePixelShader( pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), nullptr, &g_pPixelShader );
     pPSBlob->Release();
     if( FAILED( hr ) )
         return hr;
@@ -443,22 +442,22 @@ HRESULT InitDevice()
     bd.ByteWidth = sizeof(CBNeverChanges);
     bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
     bd.CPUAccessFlags = 0;
-    hr = g_pd3dDevice->CreateBuffer( &bd, NULL, &g_pCBNeverChanges );
+    hr = g_pd3dDevice->CreateBuffer( &bd, nullptr, &g_pCBNeverChanges );
     if( FAILED( hr ) )
         return hr;
     
     bd.ByteWidth = sizeof(CBChangeOnResize);
-    hr = g_pd3dDevice->CreateBuffer( &bd, NULL, &g_pCBChangeOnResize );
+    hr = g_pd3dDevice->CreateBuffer( &bd, nullptr, &g_pCBChangeOnResize );
     if( FAILED( hr ) )
         return hr;
     
     bd.ByteWidth = sizeof(CBChangesEveryFrame);
-    hr = g_pd3dDevice->CreateBuffer( &bd, NULL, &g_pCBChangesEveryFrame );
+    hr = g_pd3dDevice->CreateBuffer( &bd, nullptr, &g_pCBChangesEveryFrame );
     if( FAILED( hr ) )
         return hr;
 
     // Load the Texture
-    hr = D3DX11CreateShaderResourceViewFromFile( g_pd3dDevice, L"seafloor.dds", NULL, NULL, &g_pTextureRV, NULL );
+    hr = D3DX11CreateShaderResourceViewFromFile( g_pd3dDevice, "seafloor.dds", nullptr, nullptr, &g_pTextureRV, nullptr );
     if( FAILED( hr ) )
         return hr;
 
@@ -487,14 +486,14 @@ HRESULT InitDevice()
 
     CBNeverChanges cbNeverChanges;
     cbNeverChanges.mView = XMMatrixTranspose( g_View );
-    g_pImmediateContext->UpdateSubresource( g_pCBNeverChanges, 0, NULL, &cbNeverChanges, 0, 0 );
+    g_pImmediateContext->UpdateSubresource( g_pCBNeverChanges, 0, nullptr, &cbNeverChanges, 0, 0 );
 
     // Initialize the projection matrix
     g_Projection = XMMatrixPerspectiveFovLH( XM_PIDIV4, width / (FLOAT)height, 0.01f, 100.0f );
     
     CBChangeOnResize cbChangesOnResize;
     cbChangesOnResize.mProjection = XMMatrixTranspose( g_Projection );
-    g_pImmediateContext->UpdateSubresource( g_pCBChangeOnResize, 0, NULL, &cbChangesOnResize, 0, 0 );
+    g_pImmediateContext->UpdateSubresource( g_pCBChangeOnResize, 0, nullptr, &cbChangesOnResize, 0, 0 );
 
     return S_OK;
 }
@@ -577,9 +576,9 @@ void Render()
     g_World = XMMatrixRotationY( t );
 
     // Modify the color
-    g_vMeshColor.x = ( sinf( t * 1.0f ) + 1.0f ) * 0.5f;
-    g_vMeshColor.y = ( cosf( t * 3.0f ) + 1.0f ) * 0.5f;
-    g_vMeshColor.z = ( sinf( t * 5.0f ) + 1.0f ) * 0.5f;
+    g_vMeshColor.x = 1.0f;//( sinf( t * 1.0f ) + 1.0f ) * 0.5f;
+    g_vMeshColor.y = 1.0f;//( cosf( t * 3.0f ) + 1.0f ) * 0.5f;
+    g_vMeshColor.z = 1.0f;//( sinf( t * 5.0f ) + 1.0f ) * 0.5f;
 
     //
     // Clear the back buffer
@@ -598,16 +597,16 @@ void Render()
     CBChangesEveryFrame cb;
     cb.mWorld = XMMatrixTranspose( g_World );
     cb.vMeshColor = g_vMeshColor;
-    g_pImmediateContext->UpdateSubresource( g_pCBChangesEveryFrame, 0, NULL, &cb, 0, 0 );
+    g_pImmediateContext->UpdateSubresource( g_pCBChangesEveryFrame, 0, nullptr, &cb, 0, 0 );
 
     //
     // Render the cube
     //
-    g_pImmediateContext->VSSetShader( g_pVertexShader, NULL, 0 );
+    g_pImmediateContext->VSSetShader( g_pVertexShader, nullptr, 0 );
     g_pImmediateContext->VSSetConstantBuffers( 0, 1, &g_pCBNeverChanges );
     g_pImmediateContext->VSSetConstantBuffers( 1, 1, &g_pCBChangeOnResize );
     g_pImmediateContext->VSSetConstantBuffers( 2, 1, &g_pCBChangesEveryFrame );
-    g_pImmediateContext->PSSetShader( g_pPixelShader, NULL, 0 );
+    g_pImmediateContext->PSSetShader( g_pPixelShader, nullptr, 0 );
     g_pImmediateContext->PSSetConstantBuffers( 2, 1, &g_pCBChangesEveryFrame );
     g_pImmediateContext->PSSetShaderResources( 0, 1, &g_pTextureRV );
     g_pImmediateContext->PSSetSamplers( 0, 1, &g_pSamplerLinear );
