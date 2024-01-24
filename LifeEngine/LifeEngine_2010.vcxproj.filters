@@ -29,10 +29,16 @@
     <ClInclude Include="include\Resource.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="include\Device.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LifeEngine.cpp" />
     <ClCompile Include="src\Window.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Device.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
