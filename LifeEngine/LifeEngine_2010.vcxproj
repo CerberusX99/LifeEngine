@@ -426,6 +426,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Device.h" />
+    <ClInclude Include="include\DeviceContext.h" />
     <ClInclude Include="include\Prerequisites.h" />
     <ClInclude Include="include\Resource.h" />
     <ClInclude Include="include\Window.h" />

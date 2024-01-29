@@ -32,6 +32,9 @@
     <ClInclude Include="include\Device.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="include\DeviceContext.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LifeEngine.cpp" />
