@@ -1,0 +1,22 @@
+#pragma once
+#include "Prerequisites.h"	
+class Device; 
+class DeviceContext;
+
+class DepthStencilView
+{
+	public :
+		DepthStencilView()= default;
+		~DepthStencilView() {SAFE_RELEASE(m_depthStencilView);}
+
+		void
+			init(Device device, ID3D11Resource* depthStencil, DXGI_FORMAT format);
+		void
+			update();
+		void
+			destroy();
+		void
+			render(DeviceContext& deviceContext);
+public:
+	ID3D11DepthStencilView*m_depthStencilView= nullptr;
+};
