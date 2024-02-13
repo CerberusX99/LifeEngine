@@ -1,27 +1,33 @@
 #pragma once
 #include "Prerequisites.h"
-class DeviceContext {
+
+// DeviceContext class responsible for managing the Direct3D device context
+class DeviceContext
+{
 public:
-	DeviceContext()=default;
-	~DeviceContext() { SAFE_RELEASE(m_deviceContext); };
+    // Default constructor and destructor
+    DeviceContext() = default;
+    ~DeviceContext() { SAFE_RELEASE(m_deviceContext); };
 
-	void 
-		init();
+    void init();
 
-	void
-		update();
+    void update();
 
-	void
-		render();
+    void render();
 
-	void
-		Destroy();
-	void
-		ClearDephtStencilView(ID3D11DepthStencilView* pDepthStencilView,
-								unsigned int ClearFlags,
-								float Depth,
-								unsigned int Stencil);
-	public :
-		ID3D11DeviceContext* m_deviceContext = nullptr;
+    void destroy();
 
+    // Clear the depth stencil view with the specified clear flags, depth, and stencil values
+    void ClearDepthStencilView(ID3D11DepthStencilView* pDepthStencilView,
+        unsigned int ClearFlags,
+        float Depth,
+        unsigned int Stencil);
+
+    // Set pixel shader resources to be used by the pixel shader pipeline
+    void PSSetShaderResources(unsigned int StartSlot,
+        unsigned int NumViews,
+        ID3D11ShaderResourceView* const* ppShaderResourceViews);
+
+public:
+    ID3D11DeviceContext* m_deviceContext = nullptr; // Direct3D device context pointer
 };

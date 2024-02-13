@@ -38,6 +38,10 @@
     <ClInclude Include="include\DepthStencilView.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="include\SwapChain.h" />
+    <ClInclude Include="include\Texture.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LifeEngine.cpp" />
@@ -51,6 +55,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\DeviceContext.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
