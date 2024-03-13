@@ -1,35 +1,43 @@
 #pragma once
 #include "Prerequisites.h"
-
 class Device;
 class DeviceContext;
 
-// Texture class for managing textures
-class Texture {
+
+
+class
+Texture {
 public:
-    Texture() = default;
-    ~Texture();
+	Texture() = default;
+	~Texture();
 
-    // Initialize texture from a file
-    void init(Device device, std::string textureName);
 
-    // Initialize texture with specified dimensions and format
-    void init(Device device,
-        unsigned width,
-        unsigned height,
-        DXGI_FORMAT Format,
-        unsigned int BlindFlags);
+	
+	void
+	init(Device device, std::string textureName);
 
-    // Update texture (if needed)
-    void update();
+	
 
-    // Render the texture
-    void render(DeviceContext& deviceContext, unsigned int StartSlot);
+	void 
+	init(Device device,
+		unsigned int width,
+		unsigned int height,
+		DXGI_FORMAT Format,
+		unsigned int BindFlags);
 
-    // Destroy the texture and release resources
-    void destroy();
+	//Cambios dinamicos en la textura 
+	void
+		update();
+
+
+	void
+		render(DeviceContext & deviceContext, unsigned int StartSlot);
+
+	void
+		destroy();
 
 public:
-    ID3D11Texture2D* m_texture = nullptr; // Handle to texture resource
-    ID3D11ShaderResourceView* m_textureFromImg; // Handle to image data for texture resource
+
+	ID3D11Texture2D* m_texture = nullptr;
+	ID3D11ShaderResourceView* m_textureFromImg = nullptr;
 };

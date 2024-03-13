@@ -1,30 +1,34 @@
 #pragma once
-#include "Prerequisites.h" 
+#include "Prerequisites.h"
 
-// Window class responsible for managing the application window
-class Window
-{
+class Window {
 public:
-    // Default constructor and destructor
+    // Constructor de la clase Window.
     Window();
+
+    // Destructor de la clase Window.
     ~Window();
 
-    // Initialize the window with the specified instance handle, show command, and window procedure
-    HRESULT init(HINSTANCE hInstance, int nCmdShow, WNDPROC windproc);
+    // Inicializa la ventana con los parámetros dados.
+    // Retorna un código de error HRESULT.
+    HRESULT init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc);
 
+    // Actualiza la ventana (puede implementarse según sea necesario).
     void update();
 
+    // Renderiza el contenido de la ventana (puede implementarse según sea necesario).
     void render();
 
-    void Destroy();
+    // Destruye la ventana y libera los recursos asociados.
+    void destroy();
 
 public:
-    HWND m_hWnd = nullptr; // Handle to the window
-    unsigned m_width; // Width of the window
-    unsigned m_height; // Height of the window
+    HWND  m_hWnd = nullptr;  // Handle de la ventana.
+    unsigned int m_width;    // Ancho de la ventana.
+    unsigned int m_height;   // Alto de la ventana.
 
 private:
-    HINSTANCE m_hInst = nullptr; // Instance handle
-    RECT m_rect; // Rectangle representing the window
-    std::string m_windowName = "Life Engine"; // Name of the window
+    HINSTANCE m_hInst = nullptr;  // Instancia de la aplicación.
+    RECT m_rect;                  // Estructura RECT que representa el rectángulo de la ventana.
+    std::string m_windowName = "LifeEngine";  // Nombre de la ventana.
 };

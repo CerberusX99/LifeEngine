@@ -1,36 +1,40 @@
 #pragma once
+
 #include "Prerequisites.h"
+
 class Device;
 class DeviceContext;
 class Window;
 class Texture;
+// Swap chain es una coleccion de buffers 
 
-// SwapChain class responsible for managing the DXGI swap chain
-class SwapChain {
+class
+SwapChain {
 public:
-    // Default constructor and destructor
-    SwapChain() = default;
-    ~SwapChain() { SAFE_RELEASE(m_swapChain); };
+	SwapChain() = default;
+	~SwapChain() { SAFE_RELEASE(m_swapChain) };
 
-    // Initialize the swap chain
-    void init(Device& device,
-        DeviceContext& deviceContext,
-        Texture& backBuffer,
-        Window window);
+	void init(Device& device,
+		      DeviceContext& deviceContext,
+		      Texture& backBuffer,
+		      Window window); //Inicializa el Objeto
 
-    // Update the swap chain (if needed)
-    void update();
+	void
+	update();
 
-    // Render using the swap chain
-    void render();
+	void
+	render();
 
-    // Destroy the swap chain and release associated resources
-    void destroy();
+	void
+	destroy();
+
+	void 
+	present();
 
 public:
-    IDXGISwapChain* m_swapChain = nullptr; // DXGI swap chain pointer
-
+	IDXGISwapChain* m_swapChain = nullptr; // Puntero al objeto
+	D3D_DRIVER_TYPE m_driverType = D3D_DRIVER_TYPE_NULL; // Tipo de controlador de DirectX
 private:
-    D3D_DRIVER_TYPE m_driverType = D3D_DRIVER_TYPE_NULL; // Driver type
-    D3D_FEATURE_LEVEL m_feature_level = D3D_FEATURE_LEVEL_11_0; // DirectX feature level
+	
+	D3D_FEATURE_LEVEL m_featureLevel = D3D_FEATURE_LEVEL_11_0; //Nivel de características de DirectX
 };
