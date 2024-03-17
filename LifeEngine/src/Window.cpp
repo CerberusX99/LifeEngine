@@ -43,7 +43,7 @@ HRESULT Window::init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc)
     m_rect = rc;
     AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
     m_hWnd = CreateWindow("TutorialWindowClass", 
-             "PLOPLO-Engine", 
+             "LifeEngine", 
              WS_OVERLAPPEDWINDOW,
              CW_USEDEFAULT, 
              CW_USEDEFAULT, 

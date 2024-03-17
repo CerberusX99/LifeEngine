@@ -19,6 +19,8 @@
 #include "ShaderProgram.h"
 #include "Buffer.h"
 #include "SamplerState.h"
+#include "ModelLoader.h"
+
 
 
 
@@ -69,6 +71,8 @@ ID3D11Buffer* g_pCBChangeOnResize = nullptr;
 ID3D11Buffer* g_pCBChangesEveryFrame = nullptr;
 ID3D11ShaderResourceView* g_pTextureRV = nullptr;
 SamplerState                        g_sampler;
+ModelLoader                         g_loader;
+
 
 
 XMMATRIX                            g_World;
@@ -131,7 +135,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 //--------------------------------------------------------------------------------------
 // Register class and create window
 //--------------------------------------------------------------------------------------
-
 
 
 //--------------------------------------------------------------------------------------
@@ -275,15 +278,18 @@ HRESULT InitDevice()
         { XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
     };
 
-
-    for (SimpleVertex vertex : vertices)
-    {
-        g_mesh.vertex.push_back(vertex);
-    }
-    g_mesh.numVertex = g_mesh.vertex.size();
+    g_mesh = g_loader.Load("norm.obj");
+  //  for (SimpleVertex vertex : vertices)
+    //{
+      //  g_mesh.vertex.push_back(vertex);
+    //}
+    //g_mesh.numVertex = g_mesh.vertex.size();
 
     // Create vertex buffer
     g_vertexBuffer.init(g_device, g_mesh, D3D11_BIND_VERTEX_BUFFER);
+    
+ 
+   
 
     unsigned int indices[] =
     {
@@ -306,11 +312,11 @@ HRESULT InitDevice()
         23,20,22
     };
 
-    for (unsigned int index : indices)
-    {
-        g_mesh.index.push_back(index);
-    }
-    g_mesh.numIndex = g_mesh.index.size();
+   //for (unsigned int index : indices)
+    //{
+   //     g_mesh.index.push_back(index);
+    //}
+    //g_mesh.numIndex = g_mesh.index.size();
 
     // Create index buffer
 
