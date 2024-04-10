@@ -41,7 +41,11 @@ ModelLoader::Load(std::string objFileName)
 
 		// Load Textures
 		mesh.vertex[i].Tex.x = Loader.LoadedVertices[i].TextureCoordinate.X;
-		mesh.vertex[i].Tex.y = Loader.LoadedVertices[i].TextureCoordinate.Y;
+		mesh.vertex[i].Tex.y = 1.0f-Loader.LoadedVertices[i].TextureCoordinate.Y;
+		// Load Normals
+		mesh.vertex[i].Nor.x = Loader.LoadedVertices[i].Normal.X;
+		mesh.vertex[i].Nor.y = Loader.LoadedVertices[i].Normal.Y;
+		mesh.vertex[i].Nor.z = Loader.LoadedVertices[i].Normal.Z;
 	}
 
 	// Load and set data to custom structure

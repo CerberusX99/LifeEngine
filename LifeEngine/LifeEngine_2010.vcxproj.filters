@@ -68,6 +68,12 @@
     <ClInclude Include="include\OBJ_Loader.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="include\Material.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Model.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LifeEngine.cpp" />
@@ -108,6 +114,12 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\ModelLoader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Material.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Model.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
