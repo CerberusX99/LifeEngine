@@ -105,7 +105,7 @@ Buffer::render(DeviceContext& deviceContext,
 	unsigned int StartSlot,
 	unsigned int NumBuffers) {
 	if (m_bindFlag == D3D11_BIND_VERTEX_BUFFER) {
-		deviceContext.IASetVertexBuffers(StartSlot, NumBuffers, &m_buffer, &m_stride, &m_offset);
+		deviceContext.IASetVertexBuffers(StartSlot, 1, &m_buffer, &m_stride, &m_offset);
 	}
 	else if (m_bindFlag == D3D11_BIND_CONSTANT_BUFFER) {
 		deviceContext.m_deviceContext->VSSetConstantBuffers(StartSlot,
@@ -128,6 +128,12 @@ Buffer::render(DeviceContext& deviceContext, DXGI_FORMAT format) {
 	}
 }
 
+/*
+void Buffer::render(DeviceContext& deviceContext, unsigned int StartSlot)
+{
+	deviceContext.IASetVertexBuffers(StartSlot, 1, &m_vertexBuffer, &m_stride, &m_offset);
+}
+*/
 
 
 void Buffer::renderModel(DeviceContext& deviceContext, unsigned int StartSlot, unsigned int NumBuffers)

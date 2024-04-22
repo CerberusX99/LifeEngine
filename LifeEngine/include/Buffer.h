@@ -37,6 +37,10 @@ public:
     void
         render(DeviceContext& deviceContext, DXGI_FORMAT format);
 
+
+    void
+        render(DeviceContext& deviceContext, unsigned int StartSlot);
+
     // Actualiza en render el constant Buffer
     void
         renderModel(DeviceContext& deviceContext, unsigned int StartSlot, unsigned int NumBuffers);
@@ -47,7 +51,10 @@ public:
 
 private:
     ID3D11Buffer* m_buffer = nullptr;
-    unsigned int m_stride = 0;
-    unsigned int m_offset = 0;
+
     unsigned int m_bindFlag = 0;
+
+    unsigned int m_stride = sizeof(SimpleVertex);
+
+    unsigned int m_offset = 0;
 };

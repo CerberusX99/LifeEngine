@@ -4,24 +4,24 @@
 class ModelLoader
 {
 public:
-	ModelLoader() = default;
-	~ModelLoader() = default;
+    ModelLoader() = default;
+    ~ModelLoader() = default;
 
-	void
-		init();
+    void
+        init();
 
-	void
-		update();
+    void
+        update();
 
-	void
-		render();
+    void
+        render();
 
-	void
-		destroy();
+    void
+        destroy();
 
-	Mesh
-		Load(std::string objFileName);
+    Mesh
+        Load(std::string objFileName);
 
 private:
-	//objl::Loader m_loader;
-}; 
+    //objl::Loader m_loader;
+};
