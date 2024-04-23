@@ -50,6 +50,7 @@ __declspec(align(16)) struct LightConfig
 	XMFLOAT3 LightColor;
 	float AmbientIntensity;
 	float padding;
+	float LightIntensity;
 };
 
 __declspec(align(16)) struct CBChangesEveryFrame

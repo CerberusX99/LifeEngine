@@ -7,14 +7,7 @@ class
 public:
     Transform() = default;
     ~Transform() {};
-
-    /* Initialize transform's variables
-
-Now we update data in Tutotial07 --> WndProc
-Increase or decrease scale with m_fSpeed * g_Time.m_fDeltaTime
-Rotate only in axis Y with g_Time.m_fDeltaTime
-*/
-    void
+          void
         init();
 
     void
@@ -27,7 +20,7 @@ Rotate only in axis Y with g_Time.m_fDeltaTime
         destroy();
 
 public:
-    //CHECK OUT: I need to create a Vector escalar and rotation
+   
     Vector3     m_v3Position;
     Vector3        m_v3Scale;
     Vector3        m_v3Rotate;
